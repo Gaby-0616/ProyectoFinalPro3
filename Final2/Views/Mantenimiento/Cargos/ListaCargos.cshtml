@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Final2.Models.Cargo>
+
+@{
+    ViewBag.Title = "ListaCargos";
+}
+
+<h2>ListaCargos</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Cargo1)
+        </th>
+        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Cargo1)
+        </td>
+       
+    </tr>
+}
+
+</table>

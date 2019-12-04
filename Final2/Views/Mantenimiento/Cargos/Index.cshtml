@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Final2.Models.Cargo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CodigoCargo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cargo1)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoCargo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cargo1)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdCargos }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdCargos }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdCargos })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.ActionLink("Lista de los Cargos", "ListaCargos")

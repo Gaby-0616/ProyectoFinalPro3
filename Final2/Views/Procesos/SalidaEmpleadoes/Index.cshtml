@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Final2.Models.SalidaEmpleado>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoSalida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Motivo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaSalida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Empleado1.Nombre)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoSalida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Motivo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaSalida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Empleado1.Nombre)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdSalidaEmpleado }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdSalidaEmpleado }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdSalidaEmpleado })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+@Html.ActionLink("Buscar Empleado por Fecha de Sallida", "FechaSalidaForm")

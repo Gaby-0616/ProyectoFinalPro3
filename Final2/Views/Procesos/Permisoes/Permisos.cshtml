@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Final2.Models.Permiso>
+
+@{
+    ViewBag.Title = "Permisos";
+}
+
+<h2>Permisos</h2>
+
+<p>
+    @Html.ActionLink("Volver", "Index","Informes")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Desde)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hasta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comentarios)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Empleado1.Nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Desde)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hasta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comentarios)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Empleado1.Nombre)
+        </td>
+        
+    </tr>
+}
+
+</table>
