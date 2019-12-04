@@ -11,20 +11,15 @@ namespace Final2.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
-
+    
     public partial class SalidaEmpleado
     {
         public int IdSalidaEmpleado { get; set; }
-        [Required(ErrorMessage = "Este campo es Obligarotio")]
         public Nullable<int> Empleado { get; set; }
-        [Required(ErrorMessage = "Este campo es Obligarotio")]
         public string TipoSalida { get; set; }
         public string Motivo { get; set; }
         public Nullable<System.DateTime> FechaSalida { get; set; }
     
-        public virtual Empleado Empleado1 { get; set; }
+        public virtual Empleados Empleados { get; set; }
     }
 }

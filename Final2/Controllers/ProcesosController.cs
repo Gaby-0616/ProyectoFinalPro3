@@ -31,7 +31,7 @@ namespace Final2.Controllers
         }
         public ActionResult Vacaciones()
         {
-            return View("Vacaciones/Create");
+            return View("Vacaciones");
         }
     }
 }

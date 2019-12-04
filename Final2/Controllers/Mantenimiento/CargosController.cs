@@ -12,7 +12,7 @@ namespace Final2.Controllers
 {
     public class CargosController : Controller
     {
-        private Recursos_HumanosEntities db = new Recursos_HumanosEntities();
+        private dbSystem db = new dbSystem();
 
         // GET: Cargos
         public ActionResult Index()
@@ -36,7 +36,7 @@ namespace Final2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cargo cargo = db.Cargos.Find(id);
+            Cargos cargo = db.Cargos.Find(id);
             if (cargo == null)
             {
                 return HttpNotFound();
@@ -55,7 +55,7 @@ namespace Final2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdCargos,CodigoCargo,Cargo1")] Cargo cargo)
+        public ActionResult Create([Bind(Include = "IdCargos,CodigoCargo,Cargo1")] Cargos cargo)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +74,7 @@ namespace Final2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cargo cargo = db.Cargos.Find(id);
+            Cargos cargo = db.Cargos.Find(id);
             if (cargo == null)
             {
                 return HttpNotFound();
@@ -87,7 +87,7 @@ namespace Final2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdCargos,CodigoCargo,Cargo1")] Cargo cargo)
+        public ActionResult Edit([Bind(Include = "IdCargos,CodigoCargo,Cargo1")] Cargos cargo)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +105,7 @@ namespace Final2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cargo cargo = db.Cargos.Find(id);
+            Cargos cargo = db.Cargos.Find(id);
             if (cargo == null)
             {
                 return HttpNotFound();
@@ -118,7 +118,7 @@ namespace Final2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cargo cargo = db.Cargos.Find(id);
+            Cargos cargo = db.Cargos.Find(id);
             db.Cargos.Remove(cargo);
             db.SaveChanges();
             return RedirectToAction("Index");

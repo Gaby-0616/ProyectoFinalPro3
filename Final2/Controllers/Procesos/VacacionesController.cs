@@ -12,12 +12,12 @@ namespace Final2.Controllers
 {
     public class VacacionesController : Controller
     {
-        private Recursos_HumanosEntities db = new Recursos_HumanosEntities();
+        private dbSystem db = new dbSystem();
 
         // GET: Vacaciones
         public ActionResult Index()
         {
-            var vacaciones = db.Vacaciones.Include(v => v.Empleado1);
+            var vacaciones = db.Vacaciones.Include(v => v.Empleados);
             return View(vacaciones.ToList());
         }
 
@@ -28,7 +28,7 @@ namespace Final2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vacacione vacacione = db.Vacaciones.Find(id);
+            Vacaciones vacacione = db.Vacaciones.Find(id);
             if (vacacione == null)
             {
                 return HttpNotFound();
@@ -48,17 +48,17 @@ namespace Final2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdVacaciones,Empleado,Desde,Hasta,Comentario")] Vacacione vacacione)
+        public ActionResult Create([Bind(Include = "IdVacaciones,Empleado,Desde,Hasta,Comentario")] Vacaciones vacaciones)
         {
             if (ModelState.IsValid)
             {
-                db.Vacaciones.Add(vacacione);
+                db.Vacaciones.Add(vacaciones);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Empleado = new SelectList(db.Empleados, "IdEmpleado", "Nombre", vacacione.Empleado);
-            return View(vacacione);
+            ViewBag.Empleado = new SelectList(db.Empleados, "IdEmpleado", "Nombre", vacaciones.Empleado);
+            return View(vacaciones);
         }
 
         // GET: Vacaciones/Edit/5
@@ -68,7 +68,7 @@ namespace Final2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vacacione vacacione = db.Vacaciones.Find(id);
+            Vacaciones vacacione = db.Vacaciones.Find(id);
             if (vacacione == null)
             {
                 return HttpNotFound();
@@ -82,7 +82,7 @@ namespace Final2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdVacaciones,Empleado,Desde,Hasta,Comentario")] Vacacione vacacione)
+        public ActionResult Edit([Bind(Include = "IdVacaciones,Empleado,Desde,Hasta,Comentario")] Vacaciones vacacione)
         {
             if (ModelState.IsValid)
             {
@@ -101,7 +101,7 @@ namespace Final2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vacacione vacacione = db.Vacaciones.Find(id);
+            Vacaciones vacacione = db.Vacaciones.Find(id);
             if (vacacione == null)
             {
                 return HttpNotFound();
@@ -114,7 +114,7 @@ namespace Final2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Vacacione vacacione = db.Vacaciones.Find(id);
+            Vacaciones vacacione = db.Vacaciones.Find(id);
             db.Vacaciones.Remove(vacacione);
             db.SaveChanges();
             return RedirectToAction("Index");

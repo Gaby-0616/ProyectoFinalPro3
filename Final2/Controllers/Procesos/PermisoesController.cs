@@ -10,121 +10,121 @@ using Final2.Models;
 
 namespace Final2.Controllers
 {
-    public class PermisoesController : Controller
+    public class PermisosesController : Controller
     {
-        private Recursos_HumanosEntities db = new Recursos_HumanosEntities();
+        private dbSystem db = new dbSystem();
 
-        // GET: Permisoes
+        // GET: Permisoses
         public ActionResult Index()
         {
-            var permisos = db.Permisos.Include(p => p.Empleado1);
-            return View(permisos.ToList());
+            var Permisos = db.Permisos.Include(p => p.Empleados);
+            return View(Permisos.ToList());
         }
         //****************ME EPLOTA***************
         public ActionResult Permisos()
         {
             var hola = (from a in db.Permisos
-                        select a).Include(l => l.Empleado);
+                        select a).Include(l => l.Empleados);
 
             return View(hola);
 
         }
 
 
-            // GET: Permisoes/Details/5
+            // GET: Permisoses/Details/5
             public ActionResult Details(int? id){
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Permiso permiso = db.Permisos.Find(id);
-            if (permiso == null)
+            Permisos Permisos = db.Permisos.Find(id);
+            if (Permisos == null)
             {
                 return HttpNotFound();
             }
-            return View(permiso);
+            return View(Permisos);
         }
 
-        // GET: Permisoes/Create
+        // GET: Permisoses/Create
         public ActionResult Create()
         {
-            ViewBag.Empleado = new SelectList(db.Empleados, "IdEmpleado", "Nombre");
+            ViewBag.Empleados = new SelectList(db.Empleados, "IdEmpleado", "Nombre");
             return View();
         }
 
-        // POST: Permisoes/Create
+        // POST: Permisoses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdPermiso,Empleado,Desde,Hasta,Comentarios")] Permiso permiso)
+        public ActionResult Create([Bind(Include = "IdPermiso,Empleados,Desde,Hasta,Comentarios")] Permisos Permisos)
         {
             if (ModelState.IsValid)
             {
-                db.Permisos.Add(permiso);
+                db.Permisos.Add(Permisos);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Empleado = new SelectList(db.Empleados, "IdEmpleado", "Nombre", permiso.Empleado);
-            return View(permiso);
+            ViewBag.Empleados = new SelectList(db.Empleados, "IdEmpleado", "Nombre", Permisos.Empleados);
+            return View(Permisos);
         }
 
-        // GET: Permisoes/Edit/5
+        // GET: Permisoses/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Permiso permiso = db.Permisos.Find(id);
-            if (permiso == null)
+            Permisos Permisos = db.Permisos.Find(id);
+            if (Permisos == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Empleado = new SelectList(db.Empleados, "IdEmpleado", "Nombre", permiso.Empleado);
-            return View(permiso);
+            ViewBag.Empleados = new SelectList(db.Empleados, "IdEmpleado", "Nombre", Permisos.Empleados);
+            return View(Permisos);
         }
 
-        // POST: Permisoes/Edit/5
+        // POST: Permisoses/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdPermiso,Empleado,Desde,Hasta,Comentarios")] Permiso permiso)
+        public ActionResult Edit([Bind(Include = "IdPermiso,Empleados,Desde,Hasta,Comentarios")] Permisos Permisos)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(permiso).State = EntityState.Modified;
+                db.Entry(Permisos).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Empleado = new SelectList(db.Empleados, "IdEmpleado", "Nombre", permiso.Empleado);
-            return View(permiso);
+            ViewBag.Empleados = new SelectList(db.Empleados, "IdEmpleado", "Nombre", Permisos.Empleados);
+            return View(Permisos);
         }
 
-        // GET: Permisoes/Delete/5
+        // GET: Permisoses/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Permiso permiso = db.Permisos.Find(id);
-            if (permiso == null)
+            Permisos Permisos = db.Permisos.Find(id);
+            if (Permisos == null)
             {
                 return HttpNotFound();
             }
-            return View(permiso);
+            return View(Permisos);
         }
 
-        // POST: Permisoes/Delete/5
+        // POST: Permisoses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Permiso permiso = db.Permisos.Find(id);
-            db.Permisos.Remove(permiso);
+            Permisos Permisos = db.Permisos.Find(id);
+            db.Permisos.Remove(Permisos);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -10,15 +10,15 @@ using Final2.Models;
 
 namespace Final2.Controllers
 {
-    public class SalidaEmpleadoesController : Controller
+    public class SalidaEmpleadosesController : Controller
     {
-        private Recursos_HumanosEntities db = new Recursos_HumanosEntities();
+        private dbSystem db = new dbSystem();
 
-        // GET: SalidaEmpleadoes
+        // GET: SalidaEmpleadoses
         public ActionResult Index()
         {
-            var salidaEmpleadoes = db.SalidaEmpleadoes.Include(s => s.Empleado1);
-            return View(salidaEmpleadoes.ToList());
+            var salidaEmpleadoses = db.SalidaEmpleado.Include(s => s.Empleado);
+            return View(salidaEmpleadoses.ToList());
         }
 
         public ActionResult FechaSalidaForm()
@@ -30,7 +30,7 @@ namespace Final2.Controllers
         public ActionResult FechaSalida(DateTime FechaSalida)
         {
 
-            var Fecha_salida = from a in db.SalidaEmpleadoes
+            var Fecha_salida = from a in db.SalidaEmpleado
                                where a.FechaSalida == FechaSalida
                                select a;
             return View(Fecha_salida);
@@ -40,40 +40,40 @@ namespace Final2.Controllers
 
 
 
-        // GET: SalidaEmpleadoes/Details/5
+        // GET: SalidaEmpleadoses/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SalidaEmpleado salidaEmpleado = db.SalidaEmpleadoes.Find(id);
-            if (salidaEmpleado == null)
+            SalidaEmpleado salidaEmpleados = db.SalidaEmpleado.Find(id);
+            if (salidaEmpleados == null)
             {
                 return HttpNotFound();
             }
-            return View(salidaEmpleado);
+            return View(salidaEmpleados);
         }
 
-        // GET: SalidaEmpleadoes/Create
+        // GET: SalidaEmpleadoses/Create
         public ActionResult Create()
         {
-            ViewBag.Empleado = new SelectList(db.Empleados, "IdEmpleado", "Nombre");
-            ViewBag.TipoSalida = new SelectList(db.SalidaEmpleadoes, "IdSalidaEmpleado", "TipoSalida");
+            ViewBag.Empleados = new SelectList(db.Empleados, "IdEmpleado", "Nombre");
+            ViewBag.TipoSalida = new SelectList(db.SalidaEmpleado, "IdSalidaEmpleados", "TipoSalida");
 
             return View();
         }
 
-        // POST: SalidaEmpleadoes/Create
+        // POST: SalidaEmpleadoses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdSalidaEmpleado,Empleado,TipoSalida,Motivo,FechaSalida")] SalidaEmpleado salidaEmpleado)
+        public ActionResult Create([Bind(Include = "IdSalidaEmpleados,Empleados,TipoSalida,Motivo,FechaSalida")] SalidaEmpleado salidaEmpleados)
         {
 
             var query = (from a in db.Empleados
-                         where a.IdEmpleado == salidaEmpleado.Empleado
+                         where a.IdEmpleado == salidaEmpleados.Empleado
                          select a).First();
 
             query.Estatus = "Inactivo";
@@ -83,76 +83,76 @@ namespace Final2.Controllers
             {
 
                 //var query = (from a in db.Empleados
-                //             where a.IdEmpleado == salidaEmpleado.Empleado
+                //             where a.IdEmpleado == salidaEmpleados.Empleados
                 //             select a).First();
 
                 
 
-                db.SalidaEmpleadoes.Add(salidaEmpleado);
+                db.SalidaEmpleado.Add(salidaEmpleados);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Empleado = new SelectList(db.Empleados, "IdEmpleado", "Nombre", salidaEmpleado.Empleado);
-            ViewBag.TipoSalida = new SelectList(db.SalidaEmpleadoes, "IdSalidaEmpleado", "checkTipoSalida");
-            return View(salidaEmpleado);
+            ViewBag.Empleados = new SelectList(db.Empleados, "IdEmpleado", "Nombre", salidaEmpleados.Empleado);
+            ViewBag.TipoSalida = new SelectList(db.SalidaEmpleado, "IdSalidaEmpleados", "checkTipoSalida");
+            return View(salidaEmpleados);
         }
 
-        // GET: SalidaEmpleadoes/Edit/5
+        // GET: SalidaEmpleadoses/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SalidaEmpleado salidaEmpleado = db.SalidaEmpleadoes.Find(id);
-            if (salidaEmpleado == null)
+            SalidaEmpleado salidaEmpleados = db.SalidaEmpleado.Find(id);
+            if (salidaEmpleados == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Empleado = new SelectList(db.Empleados, "IdEmpleado", "Nombre", salidaEmpleado.Empleado);
-            return View(salidaEmpleado);
+            ViewBag.Empleados = new SelectList(db.Empleados, "IdEmpleado", "Nombre", salidaEmpleados.Empleado);
+            return View(salidaEmpleados);
         }
 
-        // POST: SalidaEmpleadoes/Edit/5
+        // POST: SalidaEmpleadoses/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdSalidaEmpleado,Empleado,TipoSalida,Motivo,FechaSalida")] SalidaEmpleado salidaEmpleado)
+        public ActionResult Edit([Bind(Include = "IdSalidaEmpleados,Empleados,TipoSalida,Motivo,FechaSalida")] SalidaEmpleado salidaEmpleados)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(salidaEmpleado).State = EntityState.Modified;
+                db.Entry(salidaEmpleados).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Empleado = new SelectList(db.Empleados, "IdEmpleado", "Nombre", salidaEmpleado.Empleado);
-            return View(salidaEmpleado);
+            ViewBag.Empleados = new SelectList(db.Empleados, "IdEmpleado", "Nombre", salidaEmpleados.Empleado);
+            return View(salidaEmpleados);
         }
 
-        // GET: SalidaEmpleadoes/Delete/5
+        // GET: SalidaEmpleadoses/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SalidaEmpleado salidaEmpleado = db.SalidaEmpleadoes.Find(id);
-            if (salidaEmpleado == null)
+            SalidaEmpleado salidaEmpleados = db.SalidaEmpleado.Find(id);
+            if (salidaEmpleados == null)
             {
                 return HttpNotFound();
             }
-            return View(salidaEmpleado);
+            return View(salidaEmpleados);
         }
 
-        // POST: SalidaEmpleadoes/Delete/5
+        // POST: SalidaEmpleadoses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            SalidaEmpleado salidaEmpleado = db.SalidaEmpleadoes.Find(id);
-            db.SalidaEmpleadoes.Remove(salidaEmpleado);
+            SalidaEmpleado salidaEmpleados = db.SalidaEmpleado.Find(id);
+            db.SalidaEmpleado.Remove(salidaEmpleados);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

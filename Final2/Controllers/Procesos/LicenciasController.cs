@@ -12,13 +12,13 @@ namespace Final2.Controllers
 {
     public class LicenciasController : Controller
     {
-        private Recursos_HumanosEntities db = new Recursos_HumanosEntities();
+        private dbSystem db = new dbSystem();
 
         // GET: Licencias
         public ActionResult Index()
         {
-            var licencias = db.Licencias.Include(l => l.Empleado1);
-            return View(licencias.ToList());
+            var Licencias = db.Licencias.Include(l => l.Empleados);
+            return View(Licencias.ToList());
         }
 
         // GET: Licencias/Details/5
@@ -28,18 +28,18 @@ namespace Final2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Licencia licencia = db.Licencias.Find(id);
-            if (licencia == null)
+            Licencias Licencias = db.Licencias.Find(id);
+            if (Licencias == null)
             {
                 return HttpNotFound();
             }
-            return View(licencia);
+            return View(Licencias);
         }
 
         // GET: Licencias/Create
         public ActionResult Create()
         {
-            ViewBag.Empleado = new SelectList(db.Empleados, "IdEmpleado", "Nombre");
+            ViewBag.Empleados = new SelectList(db.Empleados, "IdEmpleado", "Nombre");
             return View();
         }
 
@@ -48,17 +48,17 @@ namespace Final2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdLicencias,Empleado,Desde,Hasta,motivo,Comentarios")] Licencia licencia)
+        public ActionResult Create([Bind(Include = "IdLicencias,Empleados,Desde,Hasta,motivo,Comentarios")] Licencias Licencias)
         {
             if (ModelState.IsValid)
             {
-                db.Licencias.Add(licencia);
+                db.Licencias.Add(Licencias);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Empleado = new SelectList(db.Empleados, "IdEmpleado", "Nombre", licencia.Empleado);
-            return View(licencia);
+            ViewBag.Empleados = new SelectList(db.Empleados, "IdEmpleado", "Nombre", Licencias.Empleados);
+            return View(Licencias);
         }
 
         // GET: Licencias/Edit/5
@@ -68,13 +68,13 @@ namespace Final2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Licencia licencia = db.Licencias.Find(id);
-            if (licencia == null)
+            Licencias Licencias = db.Licencias.Find(id);
+            if (Licencias == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Empleado = new SelectList(db.Empleados, "IdEmpleado", "Nombre", licencia.Empleado);
-            return View(licencia);
+            ViewBag.Empleados = new SelectList(db.Empleados, "IdEmpleado", "Nombre", Licencias.Empleados);
+            return View(Licencias);
         }
 
         // POST: Licencias/Edit/5
@@ -82,16 +82,16 @@ namespace Final2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdLicencias,Empleado,Desde,Hasta,motivo,Comentarios")] Licencia licencia)
+        public ActionResult Edit([Bind(Include = "IdLicencias,Empleados,Desde,Hasta,motivo,Comentarios")] Licencias Licencias)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(licencia).State = EntityState.Modified;
+                db.Entry(Licencias).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Empleado = new SelectList(db.Empleados, "IdEmpleado", "Nombre", licencia.Empleado);
-            return View(licencia);
+            ViewBag.Empleados = new SelectList(db.Empleados, "IdEmpleado", "Nombre", Licencias.Empleados);
+            return View(Licencias);
         }
 
         // GET: Licencias/Delete/5
@@ -101,12 +101,12 @@ namespace Final2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Licencia licencia = db.Licencias.Find(id);
-            if (licencia == null)
+            Licencias Licencias = db.Licencias.Find(id);
+            if (Licencias == null)
             {
                 return HttpNotFound();
             }
-            return View(licencia);
+            return View(Licencias);
         }
 
         // POST: Licencias/Delete/5
@@ -114,8 +114,8 @@ namespace Final2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Licencia licencia = db.Licencias.Find(id);
-            db.Licencias.Remove(licencia);
+            Licencias Licencias = db.Licencias.Find(id);
+            db.Licencias.Remove(Licencias);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

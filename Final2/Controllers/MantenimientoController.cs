@@ -16,12 +16,12 @@ namespace Final2.Controllers
 
         public ActionResult Empleados()
         {
-            return View("Empleadoes/Index");
+            return View("Empleados/Index");
         }
 
         public ActionResult Departamentos()
         {
-            return View("Departamentoes/Index");
+            return View("Departamentos/Index");
         }
 
         public ActionResult Cargos()

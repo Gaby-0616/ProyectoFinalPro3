@@ -12,7 +12,7 @@ namespace Final2.Controllers
 {
     public class NominasController : Controller
     {
-        private Recursos_HumanosEntities db = new Recursos_HumanosEntities();
+        private dbSystem db = new dbSystem();
 
 
 
@@ -32,7 +32,7 @@ namespace Final2.Controllers
         // GET: Nominas
         public ActionResult Index()
         {
-            return View(db.Nominas.ToList());
+            return View(db.Nomina.ToList());
         }
 
         // GET: Nominas/Details/5
@@ -42,7 +42,7 @@ namespace Final2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Nomina nomina = db.Nominas.Find(id);
+            Nomina nomina = db.Nomina.Find(id);
             if (nomina == null)
             {
                 return HttpNotFound();
@@ -53,8 +53,9 @@ namespace Final2.Controllers
         // GET: Nominas/Create
         public ActionResult Create()
         {
-            ViewBag.Total = db.Empleados.Sum(m => m.Salario);
-            return View();
+            double suma = db.Empleados.Sum(m => m.Salario).Value;
+
+            return View(new Nomina(){ Año = DateTime.Now.Year,Mes = DateTime.Now.Month, MontoTotal = int.Parse(suma.ToString()) });
         }
 
         // POST: Nominas/Create
@@ -64,15 +65,10 @@ namespace Final2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdNomina,Año,Mes,MontoTotal")] Nomina nomina)
         {
-            var Total = db.Empleados.Sum(m => m.Salario);
-            var query = (from a in db.Nominas
-                         select a).First();
-
-            query.MontoTotal = 1999; //convertir a double
+           
             if (ModelState.IsValid)
-            {
-                
-                db.Nominas.Add(nomina);
+            {                
+                db.Nomina.Add(nomina);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -87,7 +83,7 @@ namespace Final2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Nomina nomina = db.Nominas.Find(id);
+            Nomina nomina = db.Nomina.Find(id);
             if (nomina == null)
             {
                 return HttpNotFound();
@@ -118,7 +114,7 @@ namespace Final2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Nomina nomina = db.Nominas.Find(id);
+            Nomina nomina = db.Nomina.Find(id);
             if (nomina == null)
             {
                 return HttpNotFound();
@@ -131,8 +127,8 @@ namespace Final2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Nomina nomina = db.Nominas.Find(id);
-            db.Nominas.Remove(nomina);
+            Nomina nomina = db.Nomina.Find(id);
+            db.Nomina.Remove(nomina);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

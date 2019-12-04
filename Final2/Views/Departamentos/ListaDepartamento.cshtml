@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Final2.Models.Departamentos>
+
+@{
+    ViewBag.Title = "Lista de los Departamento";
+}
+
+<h2>ListaDepartamento</h2>
+
+<p>
+    
+</p>
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        
+        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        
+        
+    </tr>
+}
+
+</table>

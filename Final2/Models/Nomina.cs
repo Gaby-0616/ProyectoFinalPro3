@@ -11,18 +11,11 @@ namespace Final2.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
-
+    
     public partial class Nomina
     {
         public int IdNomina { get; set; }
-        [Required(ErrorMessage = "Este campo es Obligarotio")]
-        [Range(2017,3000, ErrorMessage = "el año tiene que ser mayor a 2017 y menor a 30000")]
         public int Año { get; set; }
-        [Range(1, 12, ErrorMessage = "El mes tiene que ser mayor  a 1 y menor de 12")]
-        [Required(ErrorMessage = "Este campo es Obligarotio")]
         public int Mes { get; set; }
         public Nullable<int> MontoTotal { get; set; }
     }
